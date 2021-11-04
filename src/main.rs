@@ -1,8 +1,12 @@
+use directories::ProjectDirs;
 use std::{
+    fs::{DirBuilder, OpenOptions},
     io::{self, Write},
+    os::unix::fs::DirBuilderExt,
     thread,
     time::Duration,
 };
+use time::OffsetDateTime;
 
 fn main() {
     const REPITITIONS: u8 = 10;
@@ -59,6 +63,20 @@ fn main() {
         "Rotate hand {} times clockwise and {} time counterclockwise.",
         REPITITIONS, REPITITIONS
     );
+
+    let proj_dirs = ProjectDirs::from("org.ftbfs", "", "exercise").unwrap();
+    let data_dir = proj_dirs.data_dir();
+    DirBuilder::new()
+        .recursive(true)
+        .mode(0o700)
+        .create(data_dir)
+        .unwrap();
+    let mut file = OpenOptions::new()
+        .append(true)
+        .create(true)
+        .open(data_dir.join("log"))
+        .unwrap();
+    writeln!(file, "{}", OffsetDateTime::now_local().unwrap()).unwrap();
 }
 
 fn count_down(n: u8) {
