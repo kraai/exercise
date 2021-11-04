@@ -17,7 +17,7 @@ fn main() {
         "Move your hand toward your thumb's side",
         "Move your hand toward your litle finger's side",
     );
-    exercise2("Turn your palm up", "Turn your palm down");
+    exercise2("Turn your palm down", "Turn your palm up");
     println!("Rotate hand {} times clockwise.", REPITITIONS);
     println!("Rotate hand {} times counterclockwise.", REPITITIONS);
 
