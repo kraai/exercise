@@ -21,6 +21,7 @@ fn main() {
     println!("Rotate hand {} times clockwise.", REPITITIONS);
     println!("Rotate hand {} times counterclockwise.", REPITITIONS);
     print!("Press Enter when finished.");
+    io::stdout().flush().unwrap();
     let mut buffer = String::new();
     io::stdin().read_line(&mut buffer).unwrap();
 
