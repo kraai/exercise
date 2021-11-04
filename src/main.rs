@@ -5,43 +5,57 @@ use std::{
 };
 
 fn main() {
-    for _ in 0..10 {
-        println!("Bend your wrist down over the edge.");
+    const REPITITIONS: u8 = 10;
+
+    for i in 1..=REPITITIONS {
+        println!(
+            "Bend your wrist down over the edge ({} of {}).",
+            i, REPITITIONS
+        );
         count_down(5);
         println!("Release.");
         count_down(3);
     }
 
-    for _ in 0..10 {
-        println!("Raise your hand up off the table.");
+    for i in 1..=REPITITIONS {
+        println!(
+            "Raise your hand up off the table ({} of {}).",
+            i, REPITITIONS
+        );
         count_down(5);
         println!("Release.");
         count_down(3);
     }
 
-    for _ in 0..10 {
-        println!("Move your hand toward your thumb's side.");
+    for i in 1..=REPITITIONS {
+        println!(
+            "Move your hand toward your thumb's side ({} of {}).",
+            i, REPITITIONS
+        );
         count_down(5);
         println!("Release.");
         count_down(3);
-        println!("Move your hand toward your litle finger's side.");
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-    }
-
-    for _ in 0..10 {
-        println!("Turn your palm up.");
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-        println!("Turn your palm down.");
+        println!(
+            "Move your hand toward your litle finger's side ({} of {}).",
+            i, REPITITIONS
+        );
         count_down(5);
         println!("Release.");
         count_down(3);
     }
 
-    println!("Rotate hand ten times.");
+    for i in 1..=REPITITIONS {
+        println!("Turn your palm up ({} of {}).", i, REPITITIONS);
+        count_down(5);
+        println!("Release.");
+        count_down(3);
+        println!("Turn your palm down ({} of {}).", i, REPITITIONS);
+        count_down(5);
+        println!("Release.");
+        count_down(3);
+    }
+
+    println!("Rotate hand {} times.", REPITITIONS);
 }
 
 fn count_down(n: u8) {
