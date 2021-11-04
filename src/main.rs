@@ -8,61 +8,18 @@ use std::{
 };
 use time::OffsetDateTime;
 
+const REPITITIONS: u8 = 10;
+
 fn main() {
-    const REPITITIONS: u8 = 10;
-
-    for i in 1..=REPITITIONS {
-        println!(
-            "Bend your wrist down over the edge ({} of {}).",
-            i, REPITITIONS
-        );
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-    }
-
-    for i in 1..=REPITITIONS {
-        println!(
-            "Raise your hand up off the table ({} of {}).",
-            i, REPITITIONS
-        );
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-    }
-
-    for i in 1..=REPITITIONS {
-        println!(
-            "Move your hand toward your thumb's side ({} of {}).",
-            i, REPITITIONS
-        );
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-        println!(
-            "Move your hand toward your litle finger's side ({} of {}).",
-            i, REPITITIONS
-        );
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-    }
-
-    for i in 1..=REPITITIONS {
-        println!("Turn your palm up ({} of {}).", i, REPITITIONS);
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-        println!("Turn your palm down ({} of {}).", i, REPITITIONS);
-        count_down(5);
-        println!("Release.");
-        count_down(3);
-    }
-
-    println!(
-        "Rotate hand {} times clockwise and {} time counterclockwise.",
-        REPITITIONS, REPITITIONS
+    exercise("Bend your wrist down over the edge");
+    exercise("Raise your hand up off the table");
+    exercise2(
+        "Move your hand toward your thumb's side",
+        "Move your hand toward your litle finger's side",
     );
+    exercise2("Turn your palm up", "Turn your palm down");
+    println!("Rotate hand {} times clockwise.", REPITITIONS);
+    println!("Rotate hand {} times counterclockwise.", REPITITIONS);
 
     let proj_dirs = ProjectDirs::from("org.ftbfs", "", "exercise").unwrap();
     let data_dir = proj_dirs.data_dir();
@@ -79,12 +36,69 @@ fn main() {
     writeln!(file, "{}", OffsetDateTime::now_local().unwrap()).unwrap();
 }
 
-fn count_down(n: u8) {
-    for i in (1..=n).rev() {
-        print!("\r{}", i);
+fn exercise(description: &str) {
+    let spaces = " ".repeat(description.len() + 19);
+
+    for i in 1..=REPITITIONS {
+        print!("\r{} ({} of {}): Ready.", description, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        print!("\r{}", spaces);
+        print!("\r{} ({} of {}): Set.", description, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        for j in (1..=5).rev() {
+            print!("\r{}", spaces);
+            print!("\r{} ({} of {}): {}", description, i, REPITITIONS, j);
+            io::stdout().flush().unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
+        print!("\r{} ({} of {}): Reset.", description, i, REPITITIONS);
         io::stdout().flush().unwrap();
         thread::sleep(Duration::from_secs(1));
     }
+    println!();
+}
 
-    print!("\r");
+fn exercise2(description1: &str, description2: &str) {
+    let spaces1 = " ".repeat(description1.len() + 19);
+    let spaces2 = " ".repeat(description2.len() + 19);
+
+    for i in 1..=REPITITIONS {
+        print!("\r{}", spaces2);
+        print!("\r{} ({} of {}): Ready.", description1, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        print!("\r{}", spaces1);
+        print!("\r{} ({} of {}): Set.", description1, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        for j in (1..=5).rev() {
+            print!("\r{}", spaces1);
+            print!("\r{} ({} of {}): {}", description1, i, REPITITIONS, j);
+            io::stdout().flush().unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
+        print!("\r{} ({} of {}): Reset.", description1, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        print!("\r{}", spaces1);
+        print!("\r{} ({} of {}): Ready.", description2, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        print!("\r{}", spaces2);
+        print!("\r{} ({} of {}): Set.", description2, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+        for j in (1..=5).rev() {
+            print!("\r{}", spaces2);
+            print!("\r{} ({} of {}): {}", description2, i, REPITITIONS, j);
+            io::stdout().flush().unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
+        print!("\r{} ({} of {}): Reset.", description2, i, REPITITIONS);
+        io::stdout().flush().unwrap();
+        thread::sleep(Duration::from_secs(1));
+    }
+    println!();
 }
