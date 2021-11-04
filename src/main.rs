@@ -20,6 +20,9 @@ fn main() {
     exercise2("Turn your palm down", "Turn your palm up");
     println!("Rotate hand {} times clockwise.", REPITITIONS);
     println!("Rotate hand {} times counterclockwise.", REPITITIONS);
+    print!("Press Enter when finished.");
+    let mut buffer = String::new();
+    io::stdin().read_line(&mut buffer).unwrap();
 
     let proj_dirs = ProjectDirs::from("org.ftbfs", "", "exercise").unwrap();
     let data_dir = proj_dirs.data_dir();
