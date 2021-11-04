@@ -55,7 +55,10 @@ fn main() {
         count_down(3);
     }
 
-    println!("Rotate hand {} times.", REPITITIONS);
+    println!(
+        "Rotate hand {} times clockwise and {} time counterclockwise.",
+        REPITITIONS, REPITITIONS
+    );
 }
 
 fn count_down(n: u8) {
